@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thalir Capuchin Animation Centre</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#4A5D23',     /* Deep olive/leaf green representing 'Thalir' */
+                            light: '#F4F6F0',     /* Soft greenish-white for backgrounds */
+                            brown: '#3E2723',     /* Capuchin habit brown */
+                            earth: '#8D6E63'      /* Lighter earth tone */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom CSS for specific background overlays and animations */
+        .hero-bg {
+            position: relative;
+            overflow: hidden;
+            background-color: #3E2723;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            /* Using your live Google Drive link */
+            background-image: url('https://lh3.googleusercontent.com/sitesv/AA5AbUBQF114GUFOb51RnZlIh7OfNAQfbvBF0t67kQDtjCS-LFFG12no-F2_k8_uMU2xiSO1HwqLZkpf5TlQwGgY3oXfWHHKYKniYhLOEkiBb__I2mwDIM3HCcH8CVjX09pMDLdfhfxvtjOSEpHeENV5UCOYd3OUPXqTAaH0ZEhrW_gdFtoGO1EEzI_iWWUT9pd_weuNQAf8sWcRuS6F6_mCqzEnhodAgM15KRI6yIuN=w1280');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            /* Cinematic enhancements applied to your actual photo to make it look professional and vibrant */
+            filter: contrast(1.15) saturate(1.3) brightness(0.9) sepia(0.1);
+            /* Straightening the image and scaling slightly to hide cropped corners */
+            transform: rotate(1.5deg) scale(1.05);
+            z-index: 0;
+        }
+        
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(62, 39, 35, 0.95) 0%, rgba(74, 93, 35, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-brand-light antialiased selection:bg-brand-green selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-serif font-bold text-xl text-brand-brown leading-tight">Thalir Centre</h1>
+                        <p class="text-xs text-brand-green font-medium tracking-wider uppercase">Capuchin Animation</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-brand-green font-medium transition-colors">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-brand-green font-medium transition-colors">About Us</a>
+                    <a href="#services" class="text-gray-600 hover:text-brand-green font-medium transition-colors">Services</a>
+                    <a href="#global-impact" class="text-gray-600 hover:text-brand-green font-medium transition-colors">Global Impact</a>
+                    <a href="#courses" class="text-gray-600 hover:text-brand-green font-medium transition-colors">Courses</a>
+                    <a href="#contact" class="bg-brand-green text-white px-6 py-2.5 rounded-full font-medium hover:bg-opacity-90 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">Contact Us</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-green focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-green hover:bg-brand-light rounded-md">Home</a>
+                <a href="#about" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-green hover:bg-brand-light rounded-md">About Us</a>
+                <a href="#services" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-green hover:bg-brand-light rounded-md">Services</a>
+                <a href="#global-impact" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-green hover:bg-brand-light rounded-md">Global Impact</a>
+                <a href="#courses" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-brand-green hover:bg-brand-light rounded-md">Courses</a>
+                <a href="#contact" class="block px-3 py-3 text-base font-medium text-brand-green hover:bg-brand-light rounded-md">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-[90vh] flex items-center pt-20 relative">
+        <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20">
+            <div class="max-w-3xl">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-green/20 text-white border border-brand-green/30 text-sm font-medium tracking-wide mb-6 fade-in-up">
+                    Holistic Welfare in Arasur & Beyond
+                </span>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6 fade-in-up delay-100">
+                    A Sanctuary for Healing, Growth, and Peace
+                </h2>
+                <p class="text-lg sm:text-xl text-gray-200 mb-10 font-light leading-relaxed max-w-2xl fade-in-up delay-200">
+                    Empowering individuals and communities locally in Tamil Nadu and globally through compassionate counseling, social animation, and online education.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 fade-in-up delay-300">
+                    <a href="#services" class="text-center bg-brand-green text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-white hover:text-brand-green transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
+                        Explore Our Services <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                    <a href="#global-impact" class="text-center bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
+                        Our Global Reach
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction / About Section -->
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <img src="https://www.rvasia.org/sites/default/files/2023-06/capuchin_father_nithiya_sagayam_interacts_with_the_children_of_irula_community_in_villupuram_district_of_tamil_nadu_india_photo_supplied.jpg" alt="Br. Nithiya interacting with Irular children" class="rounded-2xl shadow-soft w-full object-cover h-[500px]">
+                    <div class="absolute -bottom-8 -right-8 bg-brand-brown text-white p-8 rounded-2xl hidden md:block max-w-xs shadow-xl border-l-4 border-brand-green">
+                        <i class="fa-solid fa-quote-left text-3xl text-brand-green mb-4 opacity-50"></i>
+                        <p class="font-serif italic text-lg">"Nurturing the tender sprouts of hope in every soul we touch."</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-brand-green font-semibold tracking-wider uppercase text-sm mb-3">Who We Are</h3>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-brown mb-6 leading-tight">
+                        Rooted in Compassion, Dedicated to Your Welfare
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                        The Thalir Capuchin Animation Centre is a dedicated welfare organization located in Arasur, Villupuram. Our name, <em>Thalir</em>, signifies a tender sprout—representing our commitment to nurturing the vulnerable and fostering new beginnings.
+                    </p>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        Guided by Franciscan values of peace and fraternity, our professional team provides a safe environment for individuals facing life's challenges. Beyond counseling, Thalir is deeply committed to the social upliftment of the poorest, including special services for Primitive Tribal people (Irulars), Transgender communities, Gypsies, the physically challenged, and the rural poor.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check-circle text-brand-green mt-1.5 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Holistic mental health and family counseling</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check-circle text-brand-green mt-1.5 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Dedicated social outreach programs for marginalized communities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check-circle text-brand-green mt-1.5 mr-3"></i>
+                            <span class="text-gray-700 font-medium">A continuously developing, peaceful campus in Arasur</span>
+                        </li>
+                    </ul>
+
+                    <!-- Capuchin Mission Initiative Callout -->
+                    <div class="mt-8 p-6 bg-brand-light rounded-xl border border-brand-green/20">
+                        <h4 class="text-brand-brown font-bold flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-church text-brand-green"></i> A Capuchin Mission Initiative
+                        </h4>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Thalir Centre is a proud initiative of the Capuchin Franciscan Friars of the Amala Annai Province, Northern Tamil Nadu.
+                        </p>
+                        <a href="https://www.capstnnorth.org" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-brand-green hover:text-brand-brown font-medium transition-colors text-sm">
+                            Visit our official Province website <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h3 class="text-brand-green font-semibold tracking-wider uppercase text-sm mb-3">Our Expertise</h3>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-brown mb-6">
+                    Professional Care & Guidance
+                </h2>
+                <p class="text-gray-600 text-lg">
+                    We offer specialized therapeutic services tailored to meet the psychological, emotional, and social needs of our community.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-soft transition-all duration-300 border-t-4 border-brand-green group">
+                    <div class="w-16 h-16 rounded-full bg-brand-light flex items-center justify-center mb-6 group-hover:bg-brand-green group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-people-roof text-2xl text-brand-green group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-brand-brown mb-4">Family Conflict Counseling</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Guided mediation and structured therapeutic support to resolve disputes, foster deep understanding, and restore harmony within the family unit.
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-soft transition-all duration-300 border-t-4 border-brand-earth group">
+                    <div class="w-16 h-16 rounded-full bg-brand-light flex items-center justify-center mb-6 group-hover:bg-brand-earth group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-hands-holding-circle text-2xl text-brand-earth group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-brand-brown mb-4">Community Upliftment</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Dedicated social services focused on empowering Irulars, transgender individuals, gypsies, and the rural poor towards sustainable livelihoods.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-soft transition-all duration-300 border-t-4 border-brand-brown group">
+                    <div class="w-16 h-16 rounded-full bg-brand-light flex items-center justify-center mb-6 group-hover:bg-brand-brown group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-brain text-2xl text-brand-brown group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-brand-brown mb-4">Psychological Assessments</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Professional, strictly confidential evaluations to better understand individual psychological needs and tailor a highly effective therapeutic approach.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Retreats & Facilities Banner -->
+            <div class="mt-16 bg-white rounded-3xl p-8 sm:p-12 shadow-md border border-brand-green/20 flex flex-col lg:flex-row items-center gap-10">
+                <div class="lg:w-2/3">
+                    <div class="inline-block py-1 px-3 rounded-full bg-brand-green/10 text-brand-green text-xs font-bold tracking-wide mb-4 uppercase">
+                        Venue & Facilities
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-serif font-bold text-brand-brown mb-4">Retreats & Spiritual Animation</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        Beyond our counseling services, Thalir Centre is open for all types of spiritual animation, including retreats, religious meetings, and seminars. We offer a deeply peaceful atmosphere surrounded by lush greenery, complete with comfortable accommodation facilities for our guests.
+                    </p>
+                    <div class="flex items-center gap-4 text-brand-brown font-medium bg-brand-light p-4 rounded-xl border border-brand-green/20">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <i class="fa-solid fa-road text-brand-green"></i>
+                        </div>
+                        <span><strong>Highly Accessible:</strong> Conveniently located right on the Trichy - Chennai National Highways, just behind VRS Engineering College.</span>
+                    </div>
+                </div>
+                <div class="lg:w-1/3 w-full">
+                    <img src="https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nature Retreat" class="rounded-2xl shadow-lg w-full h-64 object-cover border-4 border-white">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Impact / Online Ministry Section -->
+    <section id="global-impact" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-brown rounded-3xl overflow-hidden shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="p-10 lg:p-16 flex flex-col justify-center">
+                        <h3 class="text-brand-green font-semibold tracking-wider uppercase text-sm mb-3">Thalir Capuchin Online</h3>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mb-6 leading-tight">
+                            A Global Mission of Education & Spirituality
+                        </h2>
+                        <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                            Initiated by Br. Nithiya OFM.Cap during the global pandemic, and assisted by Br. Joseph in technical and logistical operations, Thalir's online training programs expanded our reach far beyond Tamil Nadu. Over three years, we have provided leadership training, psycho-spiritual development, and language courses to a diverse global audience.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-6 mt-4 border-t border-white/20 pt-8">
+                            <div>
+                                <div class="text-4xl font-bold text-brand-green mb-1">60k+</div>
+                                <div class="text-sm text-gray-300 uppercase tracking-wide">Participants</div>
+                            </div>
+                            <div>
+                                <div class="text-4xl font-bold text-brand-green mb-1">54</div>
+                                <div class="text-sm text-gray-300 uppercase tracking-wide">Countries Reached</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-brand-earth p-10 lg:p-16">
+                        <h3 class="text-xl font-serif font-bold text-white mb-6 border-b border-white/20 pb-4">Online Program Highlights</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-white font-medium mb-2 flex items-center"><i class="fa-solid fa-graduation-cap text-brand-green mr-3"></i> Diverse Curriculums</h4>
+                                <p class="text-gray-200 text-sm leading-relaxed">Including six-month Franciscan Spirituality courses, six-week holistic spiritual growth programs, Leadership training, and proficiency courses in Italian, Spanish, and English.</p>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-white font-medium mb-2 flex items-center"><i class="fa-solid fa-users-rays text-brand-green mr-3"></i> Broad Audience</h4>
+                                <p class="text-gray-200 text-sm leading-relaxed">Serving Religious Leaders, Major Superiors, Formators, Teachers, Students, Research Scholars, and College professors. Facilitated by expert resource persons including Bishops, Jesuits, Salesians, and Religious Sisters.</p>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-white font-medium mb-2 flex items-center"><i class="fa-solid fa-hand-holding-heart text-brand-green mr-3"></i> Accessible to All</h4>
+                                <p class="text-gray-200 text-sm leading-relaxed">Programs were offered gratis to participants from Africa, South America, Pakistan, Sri Lanka, Bangladesh, Myanmar, as well as all Cloistered sisters and Capuchins.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Infrastructure Funding Note -->
+            <div class="mt-12 text-center max-w-4xl mx-auto">
+                <p class="text-gray-600 italic">
+                    "Funds raised through our global online initiatives have directly supported the social upliftment of the poorest in our community and vital infrastructure improvements at the Thalir campus, including new concrete roads, an RO System, a Computer Centre, campus fencing, and extensive environmental planting."
+                </p>
+            </div>
+
+            <!-- Corona Relief Video Embed -->
+            <div class="mt-16 bg-brand-light rounded-3xl p-6 sm:p-10 shadow-inner border border-brand-green/10">
+                <div class="text-center mb-8">
+                    <div class="inline-block py-1 px-3 rounded-full bg-brand-brown/10 text-brand-brown text-xs font-bold tracking-wide mb-4 uppercase">
+                        Our Outreach in Action
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-serif font-bold text-brand-brown">COVID-19 Relief Mission</h3>
+                    <p class="text-gray-600 mt-3 max-w-2xl mx-auto text-lg">
+                        Watch this documentary report on our on-ground efforts to provide essential relief and support to marginalized communities during the height of the global pandemic.
+                    </p>
+                </div>
+                
+                <!-- Video Thumbnail Link (Fallback for Error 153 / Embedding Disabled) -->
+                <div class="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-xl border-4 border-white bg-black group cursor-pointer" onclick="window.open('https://youtu.be/lKqeCcUCl0w', '_blank')">
+                    <!-- Fetching the high-res thumbnail directly from YouTube -->
+                    <img src="https://img.youtube.com/vi/lKqeCcUCl0w/maxresdefault.jpg" alt="Corona Relief Work by Thalir Capuchin Centre" class="w-full h-auto object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                    
+                    <!-- Play Button Overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-20 h-20 bg-brand-green/90 rounded-full flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-play text-3xl ml-1"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- YouTube Badge -->
+                    <div class="absolute bottom-4 left-4 bg-black/70 text-white px-4 py-2 rounded-lg backdrop-blur-sm text-sm font-medium flex items-center gap-2">
+                        <i class="fa-brands fa-youtube text-red-500 text-lg"></i> Watch on YouTube
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Courses & Registration Section -->
+    <section id="courses" class="py-24 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h3 class="text-brand-green font-semibold tracking-wider uppercase text-sm mb-3">Learn With Us</h3>
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-brown mb-6">
+                    Online Courses & Registration
+                </h2>
+                <p class="text-gray-600 text-lg">
+                    Continuing our mission of global education, we offer a variety of online programs. Browse our key course categories below and register for upcoming batches.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex items-start space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-cross text-brand-green"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-1">Franciscan Spirituality</h4>
+                        <p class="text-sm text-gray-500">Comprehensive 6-month certificate course.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex items-start space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-leaf text-brand-green"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-1">Holistic Spiritual Growth</h4>
+                        <p class="text-sm text-gray-500">6-week intensive development program.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex items-start space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-users-viewfinder text-brand-green"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-1">Leadership Training</h4>
+                        <p class="text-sm text-gray-500">For community leaders and formators.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex items-start space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-language text-brand-green"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-1">Language Proficiency</h4>
+                        <p class="text-sm text-gray-500">Courses in Italian, Spanish, and English.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex items-start space-x-4 md:col-span-2 lg:col-span-2">
+                    <div class="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-brain text-brand-green"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-1">Psycho-Spiritual Development</h4>
+                        <p class="text-sm text-gray-500">Integrating psychology and faith for personal growth and holistic wellness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center bg-white p-8 rounded-2xl shadow-sm border border-brand-green/20 max-w-4xl mx-auto">
+                <h4 class="text-xl font-serif font-bold text-brand-brown mb-4">Ready to Begin?</h4>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Access our complete course catalogue, check schedules, and submit your registration details through our official portal.</p>
+                <a href="https://docs.google.com/document/d/e/2PACX-1vSsVOlkGL6cX8xa-X2qjUz8muV2M6XnXq0ClEbTlTeIKJU6U9P97XiLoG9OpwvYkA/pub" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-brand-green text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-brand-brown transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-file-signature"></i> Open Registration Form & Course List
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer Section -->
+    <section id="contact" class="bg-brand-brown text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div>
+                    <h2 class="text-3xl font-serif font-bold mb-6">Get in Touch</h2>
+                    <p class="text-gray-300 mb-10 text-lg">
+                        Whether you are seeking guidance, wish to book an appointment, or simply want to learn more about our welfare programs, our doors are open.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fa-solid fa-location-dot text-brand-green"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Our Location</h4>
+                                <p class="text-gray-300 mt-1 leading-relaxed">
+                                    Thalir - Capuchin Animation Centre,<br>
+                                    Behind VRS College,<br>
+                                    Mamandur Colony Road, Arumpattur Post,<br>
+                                    Ulundurpet Taluk, Villupuram Dist. 607 107.
+                                </p>
+                                <a href="https://maps.app.goo.gl/vcGLUmv1nvnet9Ty5" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-4 text-white hover:text-brand-brown transition-all duration-300 text-sm font-medium bg-brand-green hover:bg-white px-5 py-2.5 rounded-full shadow-lg">
+                                    <i class="fa-solid fa-map-location-dot"></i> Get Directions on Map
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fa-solid fa-phone text-brand-green"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Phone Number</h4>
+                                <p class="text-gray-300 mt-1 leading-relaxed">
+                                    <a href="tel:+919443347609" class="hover:text-brand-green transition-colors">+91 94433 47609</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fa-solid fa-envelope text-brand-green"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Email Address</h4>
+                                <p class="text-gray-300 mt-1 leading-relaxed">
+                                    <a href="mailto:tamilcaps@gmail.com" class="hover:text-brand-green transition-colors">tamilcaps@gmail.com</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 mr-4">
+                                <i class="fa-solid fa-clock text-brand-green"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Operating Hours</h4>
+                                <p class="text-gray-300 mt-1 leading-relaxed">
+                                    Monday to Friday: 9:00 AM – 6:00 PM<br>
+                                    <span class="text-brand-green font-medium">Saturday & Sunday: Closed</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form / Map Placeholder -->
+                <div class="bg-white rounded-2xl p-8 text-gray-800 shadow-xl">
+                    <h3 class="text-2xl font-serif font-bold text-brand-brown mb-6">Send us a Message</h3>
+                    <form onsubmit="event.preventDefault(); showSuccessMessage();" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-green focus:border-brand-green outline-none transition-all" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-green focus:border-brand-green outline-none transition-all" placeholder="Your phone number">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">How can we help?</label>
+                            <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-green focus:border-brand-green outline-none transition-all resize-none" placeholder="Briefly describe what you are looking for..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-green text-white font-medium py-3 px-4 rounded-lg hover:bg-opacity-90 transition-all shadow-md mt-2">
+                            Request Appointment
+                        </button>
+                        <p id="success-msg" class="hidden text-brand-green text-center font-medium mt-4">
+                            <i class="fa-solid fa-check-circle mr-2"></i> Message received. We will contact you shortly.
+                        </p>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Embedded Interactive Map -->
+            <div class="mt-16 w-full h-80 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/5 relative bg-black/20">
+                <iframe 
+                    src="https://maps.google.com/maps?q=Thalir%20Capuchin%20Animation%20Centre,%20Arasur&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="absolute inset-0 w-full h-full opacity-80 hover:opacity-100 transition-opacity duration-500">
+                </iframe>
+            </div>
+
+            <div class="border-t border-white/10 mt-12 pt-8 text-center sm:flex sm:justify-between sm:text-left items-center">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2026 Thalir Capuchin Animation Centre. All rights reserved.
+                </p>
+                <div class="mt-4 sm:mt-0 flex flex-wrap justify-center sm:justify-end items-center gap-4">
+                    <a href="https://www.capstnnorth.org" target="_blank" rel="noopener noreferrer" class="text-brand-green hover:text-white transition-colors text-sm font-medium flex items-center">
+                        <i class="fa-solid fa-church mr-2"></i> Amala Annai Province
+                    </a>
+                    <span class="hidden sm:inline text-gray-600">|</span>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar shadow on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-md');
+                nav.classList.remove('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-md');
+                nav.classList.add('shadow-sm');
+            }
+        });
+
+        // Mock Form Submission
+        function showSuccessMessage() {
+            const btn = document.querySelector('button[type="submit"]');
+            const msg = document.getElementById('success-msg');
+            const form = document.querySelector('form');
+            
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+            
+            setTimeout(() => {
+                form.reset();
+                btn.innerHTML = 'Request Appointment';
+                btn.disabled = false;
+                btn.classList.remove('opacity-75');
+                msg.classList.remove('hidden');
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    msg.classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
